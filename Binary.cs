@@ -9,61 +9,78 @@ namespace BinarySearchTree
     public class Binary<T> where T : IComparable<T>
     {
         public T NodeData { get; set; }
-        public Binary<T> Left { get; set; }
-        public Binary<T> Right { get; set; }
-
+        public Binary<T> LeftTree { get; set; }
+        public Binary<T> RightTree { get; set; }
         public Binary(T nodeData)
         {
-            NodeData = nodeData;
-            this.Left = null;
-            this.Right = null;
+            this.NodeData = nodeData;
+            this.LeftTree = null;
+            this.RightTree = null;
         }
         int leftCount = 0, rightCount = 0;
         bool result = false;
         public void Insert(T item)
+
         {
-            T CurrentNode = this.NodeData;
-            if ((CurrentNode.CompareTo(item)) > 0)
+            T currentNodeValue = this.NodeData;
+            if (currentNodeValue.CompareTo(item) > 0)
             {
-                if (this.Left == null)
-                {
-                    this.Left = new Binary<T>(item);
-                }
+                if (this.LeftTree == null)
+                    this.LeftTree = new Binary<T>(item);
                 else
-                {
-                    this.Left.Insert(item);
-                }
+                    this.LeftTree.Insert(item);
             }
             else
             {
-                if ((this.Right == null))
-                {
-                    this.Right = new Binary<T>(item);
-                }
+                if (this.RightTree == null)
+                    this.RightTree = new Binary<T>(item);
                 else
-                {
-                    this.Right.Insert(item);
-                }
+                    this.RightTree.Insert(item);
             }
-
         }
         public void Display()
         {
-            if (this.Left != null)
+            if (this.LeftTree != null)
             {
                 this.leftCount++;
-                this.Left.Display();
+                this.LeftTree.Display();
             }
             Console.WriteLine(this.NodeData.ToString());
-            if (this.Right != null)
+            if (this.RightTree != null)
             {
                 this.rightCount++;
-                this.Right.Display();
+                this.RightTree.Display();
             }
         }
         public void GetSize()
         {
-            Console.WriteLine("Size" + " " + (1 + this.leftCount + this.rightCount));
+            Console.WriteLine("Size" + "=" + (1 + this.leftCount + this.rightCount));
+        }
+        public bool Search(T element, Binary<T> node)
+        {
+            if (node == null)
+            {
+                Console.WriteLine("Element is Not Found");
+                return false;
+            }
+            if (node.NodeData.Equals(element))
+            {
+                Console.WriteLine("Found the element in BST" + " " + node.NodeData);
+                result = true;
+            }
+            else
+            {
+                Console.WriteLine("Current element is {0} in BST", node.NodeData);
+            }
+            if (element.CompareTo(node.NodeData) < 0)
+            {
+                Search(element, node.LeftTree);
+            }
+            if (element.CompareTo(node.NodeData) > 0)
+            {
+                Search(element, node.RightTree);
+            }
+            return result;
         }
     }
 }
