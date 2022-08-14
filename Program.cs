@@ -19,7 +19,9 @@
             binarysearch.Insert(63);
             binarysearch.Insert(67);
             binarysearch.Display();
-            binarysearch.GetSize(); 
+            binarysearch.GetSize();
+            bool result = binarysearch.Search(67, binarysearch);
+            Console.WriteLine(result);
         }
     }
 }
